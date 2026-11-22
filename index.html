@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>
+   Campus Mate — 학습 관리 대시보드
+  </title>
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+  <div class="app">
+   <aside class="sidebar">
+    <div class="sidebar-header">
+     <div class="brand">
+     <span class="logo">
+      ✎
+     </span>
+     <div>
+      <strong>
+       Campus Mate
+      </strong>
+      <small>
+       국립군산대학교 학습 도우미
+      </small>
+     </div>
+     </div>
+    <button aria-label="메뉴 접기" class="sidebar-toggle" id="sidebar-toggle" title="메뉴 접기" type="button">
+     ☰
+    </button>
+    </div>
+    <div class="side-caption">
+     DASHBOARD
+    </div>
+    <nav aria-label="주 메뉴" class="nav">
+     <button class="active" data-page="overview">
+      <span class="sym"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span>
+      <span class="nav-text">
+       대시보드
+      </span>
+     </button>
+     <button data-page="timetable">
+      <span class="sym"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M9 10v11M15 10v11"/></svg></span>
+      <span class="nav-text">
+       시간표
+      </span>
+     </button>
+     <button data-page="notices">
+      <span class="sym"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11v3a2 2 0 0 0 2 2h2l2 4h3l-2-4h2l7 4V5l-7 4H6a2 2 0 0 0-2 2Z"/><path d="M20 9a3 3 0 0 1 0 6"/></svg></span>
+      <span class="nav-text">
+       공지사항
+      </span>
+     </button>
+     <button data-page="calendar">
+      <span class="sym"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M8 14h3M8 17h3M15 14h2"/></svg></span>
+      <span class="nav-text">
+       학사 달력
+      </span>
+     </button>
+     <button data-page="courses">
+      <span class="sym"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h11a2 2 0 0 1 2 2v15a1 1 0 0 1-1.6.8L16 18l-3.4 2.8A1 1 0 0 1 11 20V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v15a1 1 0 0 0 1 1h9"/><path d="M6 8h3M6 12h3"/></svg></span>
+      <span class="nav-text">
+       과제 관리
+      </span>
+     </button>
+     <button data-page="grades">
+      <span class="sym"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V11m6 10V3m6 18v-8m4 8v-5"/><path d="M2 21h20"/></svg></span>
+      <span class="nav-text">
+       학점 계산기
+      </span>
+     </button>
+     <button data-page="paste">
+      <span class="sym"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8m-7-2h6v4H9z"/><rect x="5" y="4" width="14" height="18" rx="2"/><path d="M12 10v8m-4-4 4 4 4-4"/></svg></span>
+      <span class="nav-text">
+       e-class 정보 입력
+      </span>
+     </button>
+    </nav>
+    <div class="side-bottom">
+     <b>
+      학습 관리, 한곳에서
+     </b>
+     <p>
+      시간표 · 과제 · 알림 · 학점을 빠르게 확인하세요.
+     </p>
+     <a href="https://eclass.kunsan.ac.kr/Main.do?cmd=viewHome" rel="noopener noreferrer" target="_blank">
+      군산대 eClass 열기 ↗
+     </a>
+    </div>
+   </aside>
+   <div class="workspace">
+    <header class="top">
+     <div class="path" id="page-title">
+      대시보드 / Overview
+     </div>
+     <div class="topright">
+      <span class="chip">
+       사용자 입력 · 로컬 저장
+      </span>
+      <button aria-expanded="false" aria-haspopup="dialog" class="btn notify-top" id="notify-top" title="학습 알림 보기" type="button">
+       <svg aria-hidden="true" class="bell-icon" viewbox="0 0 24 24">
+        <path d="M15 17h5l-1.4-1.4a2 2 0 0 1-.6-1.4V11a6 6 0 1 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5">
+        </path>
+        <path d="M10 20a2 2 0 0 0 4 0">
+        </path>
+       </svg>
+       <span id="notify-badge">
+        0
+       </span>
+      </button>
+      <div aria-hidden="true" aria-label="학습 알림" class="notify-popover" id="notify-popover" role="dialog">
+       <div class="notify-popover-head">
+        <div>
+         <h3>
+          학습 알림
+         </h3>
+         <small>
+          마감이 가까운 과제를 빠르게 확인하세요.
+         </small>
+        </div>
+        <button class="btn" id="popover-mark-read" type="button">
+         모두 읽음
+        </button>
+       </div>
+       <div class="notify-mini-list" id="notify-popover-list">
+       </div>
+      </div>
+      <button aria-label="다크 모드 전환" class="btn" id="theme" title="다크 모드 전환">
+       ☾
+      </button>
+      <button class="btn" id="cache-backup" type="button" title="저장된 학습정보를 JSON 파일로 다운로드">데이터 백업</button>
+      <button class="btn" id="cache-clear" type="button" title="브라우저 저장 데이터 삭제" aria-label="저장 데이터 삭제">
+       저장 데이터 삭제
+      </button>
+      <span class="avatar">
+       KU
+      </span>
+     </div>
+    </header>
+    <main class="content">
+     <!-- 대시보드 -->
+     <!-- 과목별 과제 완료율 화면 -->
+     <section class="view active" id="overview">
+      <div class="topcards">
+       <div class="card">
+        <div class="mode">
+         <button class="sel" data-mode="week">
+          이번 주
+         </button>
+         <button data-mode="all">
+          전체 과제
+         </button>
+        </div>
+        <div class="ring">
+         <div class="num" id="progress-num">
+          0/0
+         </div>
+        </div>
+        <div class="ringlabel" id="progress-label">
+         이번 주 완료한 과제
+        </div>
+       </div>
+       <div class="card">
+        <div class="heading">
+         <h2 style="margin:0">
+          과목별 과제 완료율
+         </h2>
+         <button class="btn" id="add-course-btn">
+          과제 관리
+         </button>
+        </div>
+        <div id="course-progress">
+        </div>
+       </div>
+       <div class="card">
+        <h2>
+         다가오는 일정
+        </h2>
+        <div id="upcoming">
+        </div>
+       </div>
+      </div>
+      <div class="card timetable-panel">
+       <div class="heading">
+        <div>
+         <h2 style="margin:0">
+          주간 시간표
+         </h2>
+         <p class="note">
+          직접 등록한 강의 정보 · 매주 반복
+         </p>
+        </div>
+        <button class="btn primary" id="dashboard-add-class" type="button">
+         ＋ 수업 등록
+        </button>
+       </div>
+       <div class="timetable-wrap" id="dashboard-timetable">
+       </div>
+      </div>
+      <div class="actions">
+       <button id="new-notice">
+        <span class="bubble">
+         ✎
+        </span>
+        공지 확인
+       </button>
+       <button id="new-assignment">
+        <span class="bubble">
+         ＋
+        </span>
+        과제 추가
+       </button>
+       <button id="go-calendar">
+        <span class="bubble">
+         ▦
+        </span>
+        달력 보기
+       </button>
+       <button id="go-grades">
+        <span class="bubble">
+         ▤
+        </span>
+        학점 계산
+       </button>
+      </div>
+      <div class="card">
+       <div class="toolbar">
+        <h3>
+         과제 / 시험 한눈에
+        </h3>
+        <input aria-label="과제 검색" class="field search" id="assignment-search" placeholder="과제 검색..."/>
+        <div class="spacer">
+        </div>
+        <label style="font-size:12px;white-space:nowrap">
+         <input id="show-completed" type="checkbox"/>
+         완료 포함
+        </label>
+        <label style="font-size:12px;white-space:nowrap">
+         <input id="exams-only" type="checkbox"/>
+         시험만
+        </label>
+        <select aria-label="과제 분류" class="field" id="assignment-filter">
+         <option value="all">
+          전체 과목
+         </option>
+        </select>
+       </div>
+       <div class="tablewrap">
+        <table class="data">
+         <thead>
+          <tr>
+           <th>
+            상태
+           </th>
+           <th>
+            마감일
+           </th>
+           <th>
+            과제 / 시험
+           </th>
+           <th>
+            종류
+           </th>
+           <th>
+            과목
+           </th>
+           <th>
+            관리
+           </th>
+          </tr>
+         </thead>
+         <tbody id="assignment-body">
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </section>
+     <!-- 주간 시간표 -->
+     <!-- 주간 시간표 화면 -->
+     <section class="view" id="timetable">
+      <div class="heading">
+       <div>
+        <h1>
+         주간 시간표
+        </h1>
+        <p>
+         과목별 수업을 직접 등록하고 시간을 관리하세요. 동일 요일의 시간 중복을 확인합니다.
+        </p>
+       </div>
+       <button class="btn primary" id="timetable-add-class">
+        ＋ 수업 등록
+       </button>
+      </div>
+      <div class="card">
+       <div class="heading">
+        <h2>
+         내 수업 시간표
+        </h2>
+        <small class="muted">
+         현재는 학교 시간표 자동 수집을 지원하지 않습니다.
+        </small>
+       </div>
+       <div class="timetable-wrap" id="full-timetable">
+       </div>
+      </div>
+      <div class="card" style="margin-top:16px">
+       <div class="heading">
+        <h2>
+         등록한 수업
+        </h2>
+        <button class="btn" id="timetable-add-second">
+         수업 추가
+        </button>
+       </div>
+       <div class="class-list" id="class-list">
+       </div>
+      </div>
+     </section>
+     <!-- 공지사항 -->
+     <!-- 공지사항 화면 -->
+     <section class="view" id="notices">
+      <div class="heading">
+       <div>
+        <h1>
+         공지사항
+        </h1>
+        <p>
+         e-Class에서 가져온 게시물과 공지를 검색하고 읽음 상태를 관리하세요.
+        </p>
+       </div>
+      </div>
+      <div class="card">
+       <div class="toolbar">
+        <input class="field search" id="notice-search" placeholder="공지 검색..."/>
+        <select class="field" id="notice-filter">
+         <option value="전체">
+          전체 분류
+         </option>
+         <option>
+          학사
+         </option>
+         <option>
+          장학
+         </option>
+         <option>
+          행사
+         </option>
+         <option>
+          수업
+         </option>
+        </select>
+        <select class="field" id="notice-course" aria-label="공지사항 과목 필터">
+         <option value="all">전체 과목</option>
+        </select>
+        <select class="field" id="notice-read-filter" aria-label="공지사항 읽음 상태">
+          <option value="all">전체 읽음 상태</option><option value="unread">읽지 않음</option><option value="read">읽음</option>
+        </select>
+        <span id="notice-unread-count" class="count-chip" aria-live="polite">읽지 않음 0건</span>
+       </div>
+       <div class="list" id="notice-list">
+       </div>
+       <p class="note">
+        ※ 공지사항은 사용자가 직접 붙여넣고 등록한 게시물만 표시됩니다. e-Class 자동 접속은 지원하지 않습니다.
+       </p>
+      </div>
+     </section>
+     <!-- 학사 달력 -->
+     <!-- 학사 달력 화면 -->
+     <section class="view" id="calendar">
+      <div class="heading">
+       <div>
+        <h1>
+         학사 달력
+        </h1>
+        <p>
+         개인 일정과 과제·시험 마감일을 날짜별로 관리하세요. 공식 학교 학사일정 자동 연동은 제공하지 않습니다.
+        </p>
+       </div>
+       <button class="btn primary" id="event-add">
+        ＋ 일정 추가
+       </button>
+      </div>
+      <div class="layout2">
+       <div class="card">
+        <div class="calendar-top">
+         <button class="btn" id="prev-month">
+          ‹ 이전
+         </button>
+         <h2 id="calendar-month" style="margin:0">
+         </h2>
+         <button class="btn" id="next-month">
+          다음 ›
+         </button>
+        </div>
+        <div class="calgrid" id="calendar-grid">
+        </div>
+       </div>
+       <div class="card">
+        <h2 id="selected-date-title">
+         선택한 날짜
+        </h2>
+        <div class="list" id="date-events">
+        </div>
+        <p class="note">
+         ※ 개인 일정과 등록된 과제만 표시됩니다. 학교 공식 학사일정은 자동으로 가져오지 않습니다.
+        </p>
+       </div>
+      </div>
+     </section>
+     <!-- 과제 관리 -->
+     <!-- 과제 관리 화면 -->
+     <section class="view" id="courses">
+      <div class="heading">
+       <div>
+        <h1>
+         과제 관리
+        </h1>
+        <p>
+         대시보드의 Assignment Overview에 표시되는 과제와 시험을 관리하세요.
+        </p>
+       </div>
+       <button class="btn primary" id="course-add2">
+        ＋ 새 과제 등록
+       </button>
+      </div>
+      <div class="topcards task-stats">
+       <div class="card">
+        <div class="muted">
+         전체 과제 / 시험
+        </div>
+        <h1 id="task-total">
+         0
+        </h1>
+       </div>
+       <div class="card">
+        <div class="muted">
+         진행 중
+        </div>
+        <h1 id="task-pending">
+         0
+        </h1>
+       </div>
+       <div class="card">
+        <div class="muted">
+         완료
+        </div>
+        <h1 id="task-completed">
+         0
+        </h1>
+       </div>
+      </div>
+      <div class="card">
+       <div class="toolbar">
+        <h3>
+         전체 과제 목록
+        </h3>
+        <input aria-label="과제 검색" class="field search" id="task-search" placeholder="과제명 또는 과목 검색..."/>
+        <div class="spacer">
+        </div>
+        <select aria-label="과목 필터" class="field" id="task-course">
+         <option value="all">
+          전체 과목
+         </option>
+        </select>
+        <select aria-label="상태 필터" class="field" id="task-status">
+         <option value="all">
+          전체 상태
+         </option>
+         <option value="pending">
+          미완료
+         </option>
+         <option value="done">
+          완료
+         </option>
+        </select>
+       </div>
+       <div class="tablewrap">
+        <table class="data">
+         <thead>
+          <tr>
+           <th>
+            상태
+           </th>
+           <th>
+            마감일
+           </th>
+           <th>
+            과제 / 시험
+           </th>
+           <th>
+            종류
+           </th>
+           <th>
+            과목
+           </th>
+           <th>
+            관리
+           </th>
+          </tr>
+         </thead>
+         <tbody id="task-manager-body">
+         </tbody>
+        </table>
+       </div>
+       <p class="note">
+        ※ 과제 변경 내용은 대시보드·달력·알림·완료율에 반영되고 이 브라우저에 저장됩니다.
+       </p>
+      </div>
+     
+     <!-- 과제 관리 화면에서 수강 과목을 추가·수정·삭제합니다. -->
+     <div class="subject-module" id="subjects">
+      <div class="heading">
+       <div>
+        <h2>수강 과목 관리</h2>
+        <p>등록한 과목을 기준으로 과제와 e-Class 게시물을 정리합니다.</p>
+       </div>
+       <button class="btn primary" id="subject-add" type="button">＋ 과목 추가</button>
+      </div>
+      <div class="card">
+       <div class="heading">
+        <h3>내 수강 과목</h3>
+        <span class="muted" id="subject-count"></span>
+       </div>
+       <div id="subject-list" class="subject-list"></div>
+       <p class="note">과목명을 수정하면 연결된 과제·게시물·시간표에도 반영됩니다. 연결된 정보가 남아 있는 과목은 삭제할 수 없습니다.</p>
+      </div>
+     </div>
+</section>
+     <!-- 학점 계산기 -->
+     <!-- 학점 계산기 화면 -->
+     <section class="view" id="grades">
+      <div class="heading">
+       <div>
+        <h1>
+         학점 계산기
+        </h1>
+        <p>
+         과목별 성적을 입력하고 예상 평점을 계산해 보세요.
+        </p>
+       </div>
+       <button class="btn" id="add-grade">
+        ＋ 과목 추가
+       </button>
+      </div>
+      <div class="card">
+       <h2>
+        학기별 성적 관리
+       </h2>
+       <div class="semester-bar">
+        <label for="semester-picker">
+         학기 선택
+        </label>
+        <select aria-label="학기 선택" class="field" id="semester-picker">
+        </select>
+        <button class="btn" id="add-semester" type="button">
+         ＋ 학기 추가
+        </button>
+        <button class="btn" id="remove-semester" type="button">
+         학기 삭제
+        </button>
+       </div>
+       <p class="note">
+        학기를 선택한 뒤 과목과 학점을 입력하세요. 변경 내용은 이 브라우저에 자동 저장됩니다.
+       </p>
+       <div id="grade-rows">
+       </div>
+       <div class="total">
+        <div>
+         <b>
+          선택 학기 평균 평점
+         </b>
+         <div class="muted" style="font-size:12px;margin-top:4px">
+          4.5 만점 · P/F 제외 · 이수학점 가중평균
+         </div>
+        </div>
+        <strong id="gpa">
+         0.00
+        </strong>
+       </div>
+       <div class="total cumulative-total">
+        <div>
+         <b>
+          전체 학기 누적 평점
+         </b>
+         <div class="muted" id="cumulative-credits" style="font-size:12px;margin-top:4px">
+          전체 학기 이수학점 기준
+         </div>
+        </div>
+        <strong id="cumulative-gpa">
+         0.00
+        </strong>
+       </div>
+       <h2 style="margin-top:22px">
+        학기별 평점 요약
+       </h2>
+       <div class="tablewrap">
+        <table class="data">
+         <thead>
+          <tr>
+           <th>
+            학기
+           </th>
+           <th>
+            평점 반영 학점
+           </th>
+           <th>
+            평균 평점
+           </th>
+          </tr>
+         </thead>
+         <tbody id="semester-summary">
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </section>
+     <!-- e-Class 직접 복사·붙여넣기: 원본은 저장하지 않고 필요한 정보만 추출 -->
+     <section class="view" id="paste">
+      <div class="heading">
+       <div>
+        <h1>e-Class 정보 붙여넣기</h1>
+        <p>내 강의실 홈에서 직접 복사한 텍스트를 분석해 과제·과목·게시물을 등록합니다.</p>
+       </div>
+      </div>
+
+      <div class="card paste-card">
+       <fieldset class="paste-import-mode" aria-label="가져올 정보 종류">
+        <legend>가져올 정보 선택</legend>
+        <label><input type="radio" name="paste-mode" value="home" checked> 내 강의실 홈</label>
+        <label><input type="radio" name="paste-mode" value="timetable"> 학습 시간표</label>
+       </fieldset>
+       <div id="paste-home-panel">
+       <details class="import-help"><summary>내 강의실 홈 정보 가져오는 방법</summary>
+          <ol><li>e-Class에 직접 로그인하고 <strong>내 강의실 홈</strong>으로 이동합니다.</li><li>일정, 수강 과목 정보, 새로운 게시물 위젯이 있는 화면의 내용을 선택하여 복사합니다.</li><li>Campus Mate에서 분석할 위젯을 선택하고 아래 입력창에 붙여넣습니다.</li><li>분석하기를 누르면 별도 창에서 결과를 검토하고 필요한 항목만 등록합니다.</li></ol>
+          <p class="note">쪽지 등 불필요한 내용은 분석하지 않으며, 비밀번호는 입력하지 마세요.</p>
+       </details>
+       <form id="paste-form">
+        <!-- 분석하려는 위젯만 선택합니다. 선택하지 않은 영역은 저장하거나 분석하지 않습니다. -->
+        <fieldset class="paste-section paste-fieldset">
+         <legend>1. 분석할 위젯 선택</legend>
+         <p class="note">복사한 화면에 포함된 항목을 선택하세요. 세 항목만 분석하며 쪽지·내 글 목록 등은 무시합니다.</p>
+         <div class="paste-widget-grid">
+          <label><input type="checkbox" name="paste-widget" value="schedule" checked> 일정(과제·시험)</label>
+          <label><input type="checkbox" name="paste-widget" value="courses" checked> 수강 과목 정보</label>
+          <label><input type="checkbox" name="paste-widget" value="posts" checked> 새로운 게시물</label>
+         </div>
+        </fieldset>
+
+        <!-- e-Class 화면에서 사용자가 직접 복사한 텍스트 -->
+        <div class="paste-section">
+         <label for="paste-text" class="paste-heading">2. 학습정보 붙여넣기</label>
+         <textarea id="paste-text" name="information" class="field paste-textarea" rows="11" placeholder="e-Class의 '내 강의실 홈' 내용을 복사해 여기에 붙여넣으세요." required></textarea>
+         <p class="note">분석은 현재 브라우저에서만 진행됩니다. 붙여넣은 원문 및 쪽지 내용은 저장하지 않습니다.</p>
+        </div>
+
+        <div class="paste-actions">
+         <button class="btn primary" type="submit">분석하기</button>
+        </div>
+       </form>
+
+       <!-- 분석 결과 확인 후 원하는 항목만 등록 -->
+       <dialog id="paste-preview" class="paste-preview" aria-label="내 강의실 홈 분석 결과">
+        <h3>분석 결과 확인</h3>
+        <p id="paste-summary" class="note"></p>
+        <div id="paste-preview-content"></div>
+        <div class="paste-actions">
+         <button class="btn primary" type="button" id="paste-import">확인한 정보 등록하기</button>
+        </div>
+        <div class="paste-actions"><button class="btn" type="button" id="paste-preview-close">닫기</button></div>
+       </dialog>
+       <p id="paste-feedback" class="paste-feedback" role="status" aria-live="polite"></p>
+       </div>
+       <div id="paste-timetable-panel" hidden>
+        <details class="import-help"><summary>학습 시간표 가져오는 방법</summary><ol><li>e-Class의 학습 시간표 페이지를 엽니다.</li><li>표에서 시간과 월~금 머리글을 포함해 전체를 선택한 후 복사합니다.</li><li>아래 입력 영역에 붙여넣고 HTML 표 인식 안내를 확인합니다.</li><li>시간표 분석하기를 눌러 별도 창에서 요일과 시간을 확인한 다음 등록합니다.</li></ol><p class="note">복사 시 HTML 표 정보가 누락되면 요일을 추측해 등록하지 않습니다.</p></details>
+        <div class="paste-section">
+         <h2 class="paste-heading">학습 시간표 붙여넣기</h2>
+         <p class="note">e-Class에서 <strong>시간·월~일 제목을 포함한 시간표 표 전체</strong>를 드래그한 뒤 Ctrl+C로 복사하고, 아래 입력칸을 클릭해 Ctrl+V로 붙여넣으세요. F12나 코드 수정은 필요하지 않습니다.</p>
+         <div id="timetable-rich-paste" class="timetable-rich-paste" contenteditable="true" role="textbox" aria-label="e-Class 학습 시간표 HTML 표 붙여넣기" aria-multiline="true" data-placeholder="여기를 클릭한 후 e-Class 시간표를 붙여넣으세요."></div>
+         <p class="note">붙여넣기 순간 클립보드의 HTML 표를 분석합니다. 빈 칸의 위치를 보존할 수 없는 일반 텍스트만 복사된 경우에는 등록하지 않습니다.</p>
+         <div class="paste-actions"><button class="btn" type="button" id="timetable-paste-clear">입력 지우기</button><button class="btn primary" type="button" id="timetable-paste-analyze">시간표 분석하기</button></div>
+        </div>
+        <dialog id="timetable-paste-preview" class="paste-preview" aria-label="학습 시간표 분석 결과">
+         <h3>시간표 분석 결과 확인</h3>
+         <p class="note" id="timetable-paste-summary"></p>
+         <div class="paste-preview-list" id="timetable-paste-items"></div>
+         <div class="paste-actions"><button class="btn primary" type="button" id="timetable-paste-import">선택한 수업 등록하기</button></div>
+         <div class="paste-actions"><button class="btn" type="button" id="timetable-preview-close">닫기</button></div>
+        </dialog>
+        <p id="timetable-paste-feedback" class="paste-feedback" role="status" aria-live="polite"></p>
+       </div>
+      </div>
+     </section>
+     <!-- 공통 하단 안내 -->
+     <div class="footer">
+      Campus Mate · 프론트엔드 시연용 프로토타입 · 국립군산대학교 공식 서비스가 아닙니다.
+     </div>
+    </main>
+   </div>
+  </div>
+  <!-- 여러 화면에서 함께 사용하는 등록·수정 팝업 -->
+  <dialog id="modal">
+   <h2 id="modal-title">
+    등록
+   </h2>
+   <form id="modal-form">
+    <div id="modal-fields">
+    </div>
+    <div class="dialog-actions">
+     <button class="btn" id="modal-cancel" type="button">
+      취소
+     </button>
+     <button class="btn primary" type="submit">
+      저장
+     </button>
+    </div>
+   </form>
+  </dialog>
+  <!-- 자바 스크립트 -->
+  <script src="script.js"></script>
+ </body>
+</html>
